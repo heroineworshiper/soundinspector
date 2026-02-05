@@ -144,9 +144,9 @@ public class Player extends Thread {
                     {
                         float playCurrentX = Stuff.playCurrent / Stuff.zoomX;
                         float relX = playCurrentX - Stuff.viewX;
-                        if(relX > Stuff.waveformW * 3 / 4 && relX < Stuff.waveformW && !Stuff.is_dragging)
+                        if(relX > Stuff.waveformW / 2 && relX < Stuff.waveformW && !Stuff.is_dragging)
                         {
-                            Stuff.viewX = playCurrentX - Stuff.waveformW * 3 / 4;
+                            Stuff.viewX = playCurrentX - Stuff.waveformW / 2;
                             Stuff.viewX = Stuff.clamp(Stuff.viewX,0, Stuff.bitmapW / Stuff.zoomX - Stuff.waveformW);
                         }
 // scroll left when we restart playback.  Doesn't work so well if the user manually scrolls right during playback.

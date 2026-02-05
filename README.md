@@ -27,6 +27,5 @@ of playback.  Has to completely decode the file before displaying it, so
 shorter files are better.
 
 
-![A screenshot of the project](image1.png)
-![A screenshot of the project](image2.png)
+![A screenshot of the project](image1.png) ![A screenshot of the project](image2.png)
 
