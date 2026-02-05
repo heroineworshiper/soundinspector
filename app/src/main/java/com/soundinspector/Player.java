@@ -104,7 +104,7 @@ public class Player extends Thread {
             {
                 float playCurrentX = playStart / Stuff.zoomX;
                 float relX = playCurrentX - Stuff.viewX;
-                if(relX > Stuff.waveformW * 3 / 4 || relX < 0)
+                if(relX > Stuff.waveformW / 2 || relX < 0)
                 {
                     Stuff.viewX = playCurrentX - Stuff.waveformW / 2;
                     Stuff.viewX = Stuff.clamp(Stuff.viewX,0, Stuff.bitmapW / Stuff.zoomX - Stuff.waveformW);
