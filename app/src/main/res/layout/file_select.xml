@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FileSelect" >
+    <TableLayout
+        android:id="@+id/file_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true">
+            <TextView
+                android:id="@+id/currentDir"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="Filename"
+                android:textSize="18dp"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_alignParentTop="true">
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_weight="10"
+                android:layout_alignParentLeft="true"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider" />
+
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <EditText
+                android:id="@+id/file_text"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/button1"
+                android:layout_alignParentLeft="true"/>
+
+       </TableRow>
+
+       <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+
+           <Button
+               android:id="@+id/file_up"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_weight="3"
+               android:onClick="onClick"
+               android:text="&#8593;"/>
+
+           <Button
+               android:id="@+id/file_ok"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:layout_weight="4"
+               android:layout_toRightOf="@+id/file_up"
+               android:onClick="onClick"
+               android:text="OK" />
+
+            <Button
+                android:id="@+id/file_cancel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:layout_toRightOf="@+id/button1"
+                android:onClick="onClick"
+                android:text="Cancel" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>

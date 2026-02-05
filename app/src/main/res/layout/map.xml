@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        	android:id="@+id/map_pause_layout"
+            android:background="#ffffffff"
+        	android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+			android:gravity="center_horizontal"
+			android:orientation="horizontal"
+			android:layout_weight="1">
+			        	
+   	<Button
+           android:id="@+id/map_pause"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:gravity="center_horizontal|center_vertical"
+           android:layout_weight="1"
+           android:clickable="true"
+           android:onClick="onClick"
+           android:text="Record"/>
+   	</RelativeLayout>
+
+	<fragment 
+          android:id="@+id/map" 
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          class="com.superplayer.MapSupport"/>
+    
+</FrameLayout>
+
+

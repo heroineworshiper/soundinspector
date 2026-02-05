@@ -1,0 +1,173 @@
+/*
+ * SuperPlayer
+ * Copyright (C) 2026 Adam Williams <broadcast at earthling dot net>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * 
+ */
+
+package com.superplayer;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Formatter;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.maps.GoogleMap;
+import com.superplayer.R;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.Html;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.NumberPicker;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+public class PlayerWin extends Activity
+{
+    static Context context;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.i("PlayerWin", "onCreate FileReader.instance=" + FileReader.instance);
+        if(FileReader.instance == null)
+        {
+            context = getApplicationContext();
+            Settings.load(context);
+            FileReader.instance = new FileReader();
+        }
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.playerwin);
+
+        // install ffmpeg if needed
+        String privateDir = context.getFilesDir().toString();
+        String ffmpeg_dst = privateDir + "/" + Settings.FFMPEG_EXE;
+        if(!Files.exists(Paths.get(ffmpeg_dst)))
+        {
+            Log.i("PlayerWin", "onCreate copying ffmpeg to " + ffmpeg_dst);
+
+
+            File dst = new File(ffmpeg_dst);
+            try (InputStream in = context.getResources().openRawResource(R.raw.ffmpeg);
+                 FileOutputStream out = new FileOutputStream(dst)) {
+                byte[] buffer = new byte[65536];
+                int read;
+                while ((read = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, read);
+                }
+                out.flush();
+
+                dst.setReadable(true, false);
+                dst.setExecutable(true, false);  // for binaries/scripts
+            } catch(Exception e)
+            {
+                Log.e("PlayerWin", "onCreate couldn't load ffmpeg source " + e.toString());
+
+            }
+        }
+
+
+        Log.i("PlayerWin", "onCreate filesDir=" + privateDir);
+        Log.i("PlayerWin", "onCreate selectedFile=" + FileSelect.selectedFile);
+        update();
+    }
+
+
+    public void onResume() {
+        super.onResume();
+        Log.i("PlayerWin", "onResume FileSelect.success=" +
+                    FileSelect.success +
+                " selectedFile=" + FileSelect.selectedFile);
+        update();
+    }
+
+    void update()
+    {
+        if(FileSelect.success)
+        {
+            FileSelect.success = false;
+            Settings.currentDir = FileSelect.selectedDir;
+            Settings.currentFile = FileSelect.selectedFile;
+            Settings.save(getApplicationContext());
+        }
+
+        // read the sound file
+        if(Settings.samples == null && Files.exists(Paths.get(Settings.currentDir + "/" + Settings.currentFile)))
+        {
+            FileReader.instance.submitFile();
+        }
+
+        TextView text = (TextView)findViewById(R.id.currentFile);
+        if(text != null) text.setText(Settings.currentFile);
+
+        Button button = (Button)findViewById(R.id.play);
+        if(button != null)
+        {
+            if(Settings.playing)
+            {
+                button.setText(Html.fromHtml("&#9208;").toString());
+            }
+            else
+            {
+                button.setText(Html.fromHtml("&#9654;").toString());
+            }
+        }
+    }
+
+
+	
+
+    public void onClick(View view)
+    {
+    	CheckBox checkbox = null;
+
+    	
+        switch (view.getId()) {
+            case R.id.load:
+                FileSelect.nextWindow = PlayerWin.class;
+                startActivity( new Intent(getApplicationContext(), FileSelect.class));
+                break;
+
+            case R.id.save:
+                break;
+
+            case R.id.play:
+                break;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+<resources>
+
+    <string name="app_name">SoundInspector</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">SoundInspector</string>
+    <string name="file_select" />
+    <string-array name="map_type_options">
+        <item>Hybrid</item>
+        <item>Streets</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
+    </string-array>
+       <string-array name="work_unit_options">
+        <item>Seconds</item>
+        <item>Miles</item>
+        <item>Meters</item>
+    </string-array>
+    <string-array name="sounds">
+        <item>Dave</item>
+        <item>Cymbal</item>
+        <item>Cowbell</item>
+        <item>Dino</item>
+        <item>Horse</item>
+        <item>Sleigh1</item>
+        <item>Sleigh2</item>
+    </string-array>
+
+</resources>

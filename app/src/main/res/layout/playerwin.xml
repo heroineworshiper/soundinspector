@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <TableLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:theme="@style/ThemeOverlay.SoundInspector.FullscreenContainer">
+
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/currentFile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="4"
+            android:text="Untitled"
+            android:textSize="18dp"/>
+
+    </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="&#128194;"/>
+            <Button
+                android:visibility="gone"
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="&#128190;"/>
+        </TableRow>
+
+
+
+
+
+       <TableRow
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="10" >
+
+           <com.soundinspector.Waveform
+               android:id="@+id/waveform"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_weight="10" />
+
+        </TableRow>
+
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/rewind"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="&#9198;"
+                android:textSize="56dp"/>
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/prev_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="&#8592;"
+                android:textSize="56dp"/>
+
+            <Button
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+
+                android:gravity="center_horizontal"
+                android:onClick="onClick"
+                android:text="&#9658;"
+                android:textSize="56dp" />
+
+            <Button
+                android:id="@+id/stop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:clickable="true"
+
+                android:gravity="center_horizontal"
+                android:onClick="onClick"
+                android:text="&#9209;"
+                android:textSize="56dp" />
+
+
+
+            <Button
+                android:id="@+id/end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="&#9197;"
+                android:textSize="56dp"/>
+
+            <Button
+                android:visibility="gone"
+                android:id="@+id/next_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="&#8594;"
+                android:textSize="56dp"/>
+            <Button
+                android:visibility="gone"
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="&#127991;"
+                android:textSize="56dp"/>
+
+        </TableRow>
+    </TableLayout>

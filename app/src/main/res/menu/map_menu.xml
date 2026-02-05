@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_load" android:title="Load route" />
+    <item android:id="@+id/menu_clearroute" android:title="Clear route" />
+    <item android:id="@+id/menu_savelog" android:title="Save log" />
+    <item android:id="@+id/menu_clearlog" android:title="Clear log" />
+</menu>
+
+
+
+
+
+

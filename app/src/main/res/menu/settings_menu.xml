@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_savelog" android:title="Save log" />
+    <item android:id="@+id/menu_clearlog" android:title="Clear log" />
+    <item android:id="@+id/menu_interval" android:title="Interval training" />
+    <item android:id="@+id/menu_map" android:title="Map" />
+</menu>

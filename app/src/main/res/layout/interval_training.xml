@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+	<Button
+	    android:id="@+id/intervalButton"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	    android:onClick="onClick"
+	    android:text="Start" />
+    
+	<TextView
+	    android:id="@+id/elapsed"
+		android:layout_below="@+id/intervalButton"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:textAppearance="?android:attr/textAppearanceLarge" 
+	    android:text="0" />
+	
+      <GridView
+          android:id="@+id/interval_list"
+          android:layout_width="match_parent"
+          android:layout_height="fill_parent"
+          android:layout_alignParentLeft="true"
+          android:layout_below="@+id/elapsed"
+          android:numColumns="2" />
+    
+</RelativeLayout>

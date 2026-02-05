@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:id="@+id/menu_interval_settings" android:title="Interval Settings" />
+    <item android:id="@+id/menu_resetinterval" android:title="Reset training" />
+    
+</menu>

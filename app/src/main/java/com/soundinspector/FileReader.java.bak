@@ -1,0 +1,131 @@
+/*
+ * SuperPlayer
+ * Copyright (C) 2026 Adam Williams <broadcast at earthling dot net>
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * 
+ */
+
+// read an audio file in the background & compute the FFT
+
+package com.superplayer;
+
+
+import android.util.Log;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.concurrent.Semaphore;
+
+class FileReader extends Thread
+{
+    Semaphore started = new Semaphore(0);
+    Semaphore finished = new Semaphore(0);
+    boolean done = false;
+    boolean busy = false;
+    boolean interrupted = false;
+    String currentDir = "";
+    String currentFile = "";
+    static FileReader instance = null;
+
+    FileReader()
+    {
+        start();
+    }
+
+    public void submitFile()
+    {
+        Log.i("FileReader", "submitFile 1");
+        if(!currentDir.equals(Settings.currentDir) ||
+            !currentFile.equals(Settings.currentFile))
+        {
+            if(busy)
+            {
+                interrupted = true;
+                try
+                {
+                    finished.acquire();
+                }
+                catch(Exception e)
+                {
+
+                }
+            }
+
+            interrupted = false;
+            busy = true;
+            currentDir = Settings.currentDir;
+            currentFile = Settings.currentFile;
+            Log.i("FileReader", "submitFile 2");
+            started.release();
+            Log.i("FileReader", "submitFile 3");
+        }
+    }
+
+    public void run()
+    {
+        while(!done)
+        {
+            try
+            {
+                started.acquire();
+                
+                String privateDir = PlayerWin.context.getFilesDir().toString();
+                String exe = privateDir + "/" + Settings.FFMPEG_EXE;
+                String command = exe + 
+                    " -i " + currentDir + "/" + currentFile +
+                    " -f wav -acodec pcm_s16le pipe:1";
+                Log.i("FileReader", "run " + 
+                    Files.isExecutable(Paths.get(exe)) + " " +
+                    Files.isReadable(Paths.get(exe)));
+                Log.i("FileReader", "run " + command);
+//command = "/system/bin/ls -al " + privateDir;
+                Process process = Runtime.getRuntime().exec(command);
+                BufferedInputStream reader = new BufferedInputStream(process.getInputStream());
+                BufferedInputStream error = new BufferedInputStream(process.getErrorStream());
+                byte[] data = new byte[65536];
+                int result = error.read(data);
+                if(result > 0)
+                {
+                    Log.i("FileReader", "run stderr=" + new String(data, "UTF-8"));
+                }
+                result = reader.read(data);
+                Log.i("FileReader", "run result=" + result);
+                if(result > 0)
+                {
+                    Log.i("FileReader", "run stdout=" + new String(data, "UTF-8"));
+                }
+
+
+                process.waitFor();
+                Log.i("FileReader", "run done");
+
+                finished.release();
+            } catch(Exception e)
+            {
+                Log.e("FileReader", "run " + e.toString());
+                finished.release();
+            }
+        }
+    }
+}
+
+
+
+
+
